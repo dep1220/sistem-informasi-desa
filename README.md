@@ -48,7 +48,6 @@ Sistem ini dirancang untuk membantu aparat desa dalam mengelola data kependuduka
     ```bash
     pip install -r requirements.txt
     ```
-    *(Catatan: Kamu perlu membuat file `requirements.txt` terlebih dahulu dengan perintah `pip freeze > requirements.txt`)*
 
 4.  **Konfigurasi database** di `sistem_desa/settings.py`.
 
