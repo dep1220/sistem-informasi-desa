@@ -15,8 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+# sistem_desa/urls.py
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
+    path('', include('profil_desa.urls')),
     path('admin/', admin.site.urls),
+    path('kependudukan/', include('kependudukan.urls')),
+    path('surat/', include('layanan_surat.urls')),
+    path('app/', include('users.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
+
+
+# Tambahkan baris ini di paling bawah
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

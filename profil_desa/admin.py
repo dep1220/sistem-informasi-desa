@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import PotensiDesa, GaleriFoto
 
-# Register your models here.
+admin.site.register(PotensiDesa)
+admin.site.register(GaleriFoto)

@@ -1,0 +1,118 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Dashboard Utama{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-bg-primary shadow-sm mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Total Warga</h5>
+                        <p class="card-text fs-2 fw-bold">{{ total_warga }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-bg-success shadow-sm mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Total Pengajuan Surat</h5>
+                        <p class="card-text fs-2 fw-bold">{{ total_pengajuan }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-bg-info shadow-sm mb-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">Surat Selesai</h5>
+                        <p class="card-text fs-2 fw-bold">{{ pengajuan_selesai }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                Statistik Jenis Kelamin
+            </div>
+            <div class="card-body">
+                <canvas id="genderChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Mengambil data dari Django ke JavaScript
+    const genderData = {{ gender_data|safe }};
+
+    // Hanya jalankan jika ada data
+    if (genderData && genderData.length > 0) {
+        const labels = genderData.map(item => item.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan');
+        const data = genderData.map(item => item.jumlah);
+        
+        const backgroundColors = labels.map(label => label === 'Laki-laki' ? 'rgba(54, 162, 235, 0.6)' : 'rgba(255, 99, 132, 0.6)');
+        const borderColors = labels.map(label => label === 'Laki-laki' ? 'rgba(54, 162, 235, 1)' : 'rgba(255, 99, 132, 1)');
+
+        new Chart(document.getElementById('genderChart'), {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Jumlah Penduduk',
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    borderColor: borderColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            // Memastikan sumbu Y hanya menampilkan angka bulat
+                            stepSize: 1,
+                            callback: function(value) {if (value % 1 === 0) {return value;}}
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+    } else {
+        // Jika tidak ada data, tampilkan pesan
+        const ctx = document.getElementById('genderChart').getContext('2d');
+        ctx.font = '16px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Data jenis kelamin belum cukup untuk ditampilkan.', ctx.canvas.width / 2, ctx.canvas.height / 2);
+    }
+</script>
+{% endblock %}

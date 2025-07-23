@@ -1,0 +1,49 @@
+{% extends "base_admin.html" %}
+
+{% block title %}Data Warga{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Manajemen Data Warga</h4>
+            <a href="{% url 'tambah_warga' %}" class="btn btn-primary">Tambah Warga Baru</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>NIK</th>
+                        <th>Nama Lengkap</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Alamat</th>
+                        <th>Pekerjaan</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for warga in semua_warga %}
+                    <tr>
+                        <td>{{ warga.nik }}</td>
+                        <td>{{ warga.nama_lengkap }}</td>
+                        <td>{{ warga.get_jenis_kelamin_display }}</td>
+                        <td>{{ warga.alamat }}</td>
+                        <td>{{ warga.pekerjaan }}</td>
+                        <td class="text-center">
+                            <a href="{% url 'ubah_warga' warga.id %}" class="btn btn-warning btn-sm">Ubah</a>
+                            <a href="{% url 'hapus_warga' warga.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');">Hapus</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">Belum ada data warga.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "base_admin.html" %}
+
+{% block title %}
+    {% if form.instance.pk %}
+        Ubah Data Warga
+    {% else %}
+        Tambah Data Warga
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h4 class="mb-0">
+                    {% if form.instance.pk %}
+                        Formulir Ubah Data Warga
+                    {% else %}
+                        Formulir Tambah Data Warga
+                    {% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.nama_lengkap.id_for_label }}" class="form-label">Nama Lengkap</label>
+                        {{ form.nama_lengkap }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.nik.id_for_label }}" class="form-label">NIK</label>
+                        {{ form.nik }}
+                        <small class="form-text text-muted">{{ form.nik.help_text }}</small>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.jenis_kelamin.id_for_label }}" class="form-label">Jenis Kelamin</label>
+                            {{ form.jenis_kelamin }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.agama.id_for_label }}" class="form-label">Agama</label>
+                            {{ form.agama }}
+                        </div>
+                    </div>
+                    
+                     <div class="row">
+                        <div class="col-md-6 mb-3">
+                             <label for="{{ form.tempat_lahir.id_for_label }}" class="form-label">Tempat Lahir</label>
+                            {{ form.tempat_lahir }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.tanggal_lahir.id_for_label }}" class="form-label">Tanggal Lahir</label>
+                            {{ form.tanggal_lahir }}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.pekerjaan.id_for_label }}" class="form-label">Pekerjaan</label>
+                        {{ form.pekerjaan }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.alamat.id_for_label }}" class="form-label">Alamat</label>
+                        {{ form.alamat }}
+                    </div>
+
+                    <div class="card-footer text-end bg-transparent border-0 px-0">
+                        <a href="{% url 'daftar_warga' %}" class="btn btn-secondary">Batal</a>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -60,7 +60,7 @@ ROOT_URLCONF = 'sistem_desa.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],  # Tambahkan direktori templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,3 +130,14 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# sistem_desa/settings.py
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# sistem_desa/settings.py
+
+LOGIN_REDIRECT_URL = '/app/dashboard/' # Arahkan ke dashboard utama setelah login
+LOGOUT_REDIRECT_URL = '/' # Arahkan ke halaman utama (profil desa) setelah logout
