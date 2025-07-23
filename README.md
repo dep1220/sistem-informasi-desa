@@ -33,8 +33,8 @@ Sistem ini dirancang untuk membantu aparat desa dalam mengelola data kependuduka
 
 1.  **Clone repository ini:**
     ```bash
-    git clone [https://github.com/namakamu/nama-repository.git](https://github.com/namakamu/nama-repository.git)
-    cd nama-repository
+    git clone https://github.com/dep1220/sistem-informasi-desa.git
+    cd sistem-informasi-desa
     ```
 
 2.  **Buat dan aktifkan virtual environment:**
